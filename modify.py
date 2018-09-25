@@ -551,6 +551,7 @@ class BookModifier(object):
                 html_text = re.sub(r'\s*</(h\d|ul|ol|p|table|tr)>\s*', r'</\1>\n\n', html_text)
                 html_text = re.sub(r'\s*<(b|h)r([^>]*?)/?>\s*', r'<\1r\2/>\n', html_text)
                 html_text = re.sub(r'<(meta|link)([^>]*?)/?>\s*', r'<\1\2/>\n', html_text)
+                html_text = re.sub(r'</(meta|link)>', r'', html_text)
                 html_text = re.sub(r'>\n*<(body|h\d|ul|ol|p|table)( ?)', r'>\n\n<\1\2', html_text)
                 html_text = re.sub(r'<(body|table|tr)([^>]*?)>\n*', r'<\1\2>\n', html_text)
                 html_text = re.sub(r'<td([^>]*?)>\n+', r'<td\1>\n', html_text)
