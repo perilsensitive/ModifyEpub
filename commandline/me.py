@@ -33,6 +33,9 @@ To invoke this script:
             --remove_calibre_bookmarks
             --remove_os_artifacts
             --remove_unused_images
+            --unpretty
+            --strip_spans
+            --strip_kobo
 
         MANIFEST_OPTIONS
             --remove_missing_files
