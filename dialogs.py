@@ -71,6 +71,7 @@ COVER_OPTIONS = [
 METADATA_OPTIONS = [
             ('update_metadata',           'Update metadata',                            'Update the manifest with the latest calibre metadata\nand replace an existing identifiable cover if possible.'),
             ('remove_non_dc_elements',    'Remove non dc: metadata elements',      'Remove any metadata from the .opf manifest that is not in the dc: namespace.\nSuch entries are created by editing in Sigil or calibre updating metadata.\nUse this option if publishing your ePubs externally.'),
+            ('keep_pseudostandard_elements',    'Keep common non-dc: metadata elements',      'Keep some common metadata that is not in the dc: namespace but is often desired anyway.\nIncludes: meta cover tag, calibre series/series_index tags.'),
             ]
 
 STYLE_OPTIONS = [

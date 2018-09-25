@@ -32,6 +32,8 @@ BOOKMARKS_FILES = ['META-INF/calibre_bookmarks.txt']
 OS_FILES = ['.DS_Store', 'thumbs.db']
 ALL_ARTIFACTS = ITUNES_FILES + BOOKMARKS_FILES + OS_FILES
 
+KEEP_OPF_ELEMENTS = ['cover', 'calibre:series', 'calibre:series_index']
+
 class TAG:
     content = ''    #actual content
     pair = 0        #tag pair
@@ -155,8 +157,10 @@ class BookModifier(object):
             is_changed |= self._remove_broken_covers(container)
         if options['remove_cover'] and not options['insert_replace_cover']:
             is_changed |= self._remove_cover(container)
-        if options['remove_non_dc_elements']:
-            is_changed |= self._remove_non_dc_elements(container)
+        if options['remove_non_dc_elements'] and options['keep_pseudostandard_elements']:
+            is_changed |= self._remove_non_dc_elements(container, keep_elements=KEEP_OPF_ELEMENTS)
+        if options['remove_non_dc_elements'] and not options['keep_pseudostandard_elements']:
+            is_changed |= self._remove_non_dc_elements(container, keep_elements=None)
 
         # HTML/STYLE OPTIONS
         if options['encode_html_utf8']:
@@ -279,7 +283,7 @@ class BookModifier(object):
             container.set(container.opf_name, container.opf)
         return dirtied
 
-    def _remove_non_dc_elements(self, container):
+    def _remove_non_dc_elements(self, container, keep_elements=None):
         self.log('\tLooking for non dc: elements in manifest')
         if not container.opf_name:
             self.log('\t  No opf manifest found')
@@ -288,7 +292,7 @@ class BookModifier(object):
         metadata = container.opf.xpath('//opf:metadata', namespaces={'opf':OPF_NS})[0]
         for child in metadata:
             try:
-                if not child.tag.startswith('{http://purl.org/dc/'):
+                if not child.tag.startswith('{http://purl.org/dc/') and child.attrib.get('name') not in keep_elements:
                     to_remove.append(child)
                     self.log('\t  Removing child:', child)
             except:
