@@ -666,7 +666,7 @@ class BookModifier(object):
         RE_GBS_ANCHOR3 = re.compile(r'<div( style="display:none;")?><a id="GBS\.[A-Z0-9]+(\.[a-zA-Z0-9])?(\.\d+)*"/></div>', re.UNICODE | re.IGNORECASE)
         RE_GBS_ANCHOR4 = re.compile(r'<a id="GBS\.[A-Z0-9]+(\.[a-zA-Z0-9])?(\.\d+)*"/>', re.UNICODE | re.IGNORECASE)
         RE_KOBO_META1 = re.compile(r'\s*<!-- kobo-style -->', re.UNICODE | re.IGNORECASE)
-        RE_KOBO_META2 = re.compile(r'\s*<script[^>]*? src="[^"]*?js/kobo(|-android)\.js"(/|></script)>', re.UNICODE | re.IGNORECASE)
+        RE_KOBO_META2 = re.compile(r'\s*<script[^>]*? src="[^"]*?js/kobo(|-android)\.js"[^>]*?(/|></script)>', re.UNICODE | re.IGNORECASE)
         RE_KOBO_META3 = re.compile(r'\s*<style[^>]*? id="kobo[\s\S]*?</style>', re.UNICODE | re.IGNORECASE)
         RE_KOBO_META4 = re.compile(r'\s*<link[^>]*? href="[^"]*?css/kobo(|-android)\.css"[\s\S]*?(/|></link)>', re.UNICODE | re.IGNORECASE)
         dirtied = False
