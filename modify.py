@@ -30,6 +30,7 @@ from calibre_plugins.modify_epub.margins import MarginsUpdater
 ITUNES_FILES = ['iTunesMetadata.plist', 'iTunesArtwork']
 BOOKMARKS_FILES = ['META-INF/calibre_bookmarks.txt']
 OS_FILES = ['.DS_Store', 'thumbs.db']
+PAGE_MAP_FILES = ['page-map.xml']
 ALL_ARTIFACTS = ITUNES_FILES + BOOKMARKS_FILES + OS_FILES
 
 KEEP_OPF_ELEMENTS = ['cover', 'calibre:series', 'calibre:series_index']
@@ -183,6 +184,8 @@ class BookModifier(object):
             is_changed |= self._remove_files_if_exist(container, BOOKMARKS_FILES)
         if options['remove_os_artifacts']:
             is_changed |= self._remove_files_if_exist(container, OS_FILES)
+        if options['remove_page_map']:
+            is_changed |= self._remove_files_if_exist(container, PAGE_MAP_FILES)
         if options['remove_unused_images']:
             is_changed |= self._remove_unused_images(container)
         if options['strip_spans']:

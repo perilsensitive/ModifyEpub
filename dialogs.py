@@ -49,6 +49,7 @@ ADOBE_OPTIONS = [
             ('zero_xpgt_margins',         'Remove margins from Adobe .xpgt files',      'Remove any Adobe .xpgt file margins to prevent them\ninterfering with viewing'),
             ('remove_xpgt_files',         'Remove Adobe .xpgt files and links',         'Delete the .xpgt file completely from the epub\nas well as removing any links from the xhtml files'),
             ('remove_drm_meta_tags',      'Remove Adobe resource DRM meta tags',        'Remove any meta tags from the xhtml files that\ncontain DRM urn identifiers.'),
+            ('remove_page_map',           'Remove page-map.xml files',                  'Removes page-map.xml files'),
             ]
 
 TOC_OPTIONS = [
