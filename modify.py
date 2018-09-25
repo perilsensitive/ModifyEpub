@@ -729,6 +729,7 @@ class BookModifier(object):
             html_text = re.sub(r'<(\S+)([^/>]*?)></\1>', r'<\1\2/>', html_text)
             html_text = re.sub(r'<([^>]*?)(\s+?)/>', r'<\1/>', html_text)
             html_text = re.sub(r'<span([^>]+?) id="kobo([^"]+?)"', r'<span id="kobo\2"\1', html_text)
+            html_text = re.sub(r'<div([^>]+?) id="book-(columns|inner)"', r'<div id="book-\2"\1', html_text)
             html_text = re.sub(r'</(b|h)r>', r'', html_text)
             html_text = re.sub(r'<(b|h)r([^/>]*?)/?>', r'<\1r\2/>', html_text)
             html_text = re.sub(r'<(b|i|u|a|em|strong|span|big|small)/>', r'', html_text)
@@ -743,6 +744,10 @@ class BookModifier(object):
                     this_entity = TAG()
                     this_entity.content = entity
                     if entity[:15] == u'<span id="kobo.':
+                        this_entity.e_type = 9
+                    elif entity[:21] == u'<div id="book-columns':
+                        this_entity.e_type = 9
+                    elif entity[:19] == u'<div id="book-inner':
                         this_entity.e_type = 9
                     elif entity[-2:] == u'/>':
                         this_entity.e_type = 3
