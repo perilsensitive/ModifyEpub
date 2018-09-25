@@ -1,3 +1,6 @@
+[B]Version 1.3.14[/B] - 29 Nov 2017
+Add option to remove page-map.xml files
+
 [B]Version 1.3.13[/B] - 05 Jul 2015
 Added option to disable the confirmation prompt each time to update the epub. Use at your own risk - if you make simultaneous other changes to the book record they may get lost.
 Fix for Cancel on the progress dialog (submitted by Raúl)
