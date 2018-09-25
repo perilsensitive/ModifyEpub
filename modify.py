@@ -663,6 +663,8 @@ class BookModifier(object):
 
         RE_GBS_ANCHOR1 = re.compile(r'<div( style="display:none;")?><a id="GBS\.\d+\.\d+"/></div>', re.UNICODE | re.IGNORECASE)
         RE_GBS_ANCHOR2 = re.compile(r'<a id="GBS\.\d+\.\d+"/>', re.UNICODE | re.IGNORECASE)
+        RE_GBS_ANCHOR3 = re.compile(r'<div( style="display:none;")?><a id="GBS\.[A-Z0-9]+(\.[a-zA-Z0-9])?(\.\d+)*"/></div>', re.UNICODE | re.IGNORECASE)
+        RE_GBS_ANCHOR4 = re.compile(r'<a id="GBS\.[A-Z0-9]+(\.[a-zA-Z0-9])?(\.\d+)*"/>', re.UNICODE | re.IGNORECASE)
         RE_KOBO_META1 = re.compile(r'\s*<!-- kobo-style -->', re.UNICODE | re.IGNORECASE)
         RE_KOBO_META2 = re.compile(r'\s*<script[^>]*? src="[^"]*?js/kobo(|-android)\.js"(/|></script)>', re.UNICODE | re.IGNORECASE)
         RE_KOBO_META3 = re.compile(r'\s*<style[^>]*? id="kobo[\s\S]*?</style>', re.UNICODE | re.IGNORECASE)
@@ -674,6 +676,8 @@ class BookModifier(object):
             html = container.get_raw(name)
             new_html = RE_GBS_ANCHOR1.sub('', html)
             new_html = RE_GBS_ANCHOR2.sub('', new_html)
+            new_html = RE_GBS_ANCHOR3.sub('', new_html)
+            new_html = RE_GBS_ANCHOR4.sub('', new_html)
             if html != new_html:
                 gbsfound = True
                 dirtied = True
@@ -708,7 +712,7 @@ class BookModifier(object):
             if gbsopf == False:
                 for name in list(container.get_pagemap_names()):
                     mapcode = container.get_raw(name)
-                    gbscheck = re.compile(r'#GBS\.\d+\.\d+')
+                    gbscheck = re.compile(r'#GBS\.(\d+\.\d+|[A-Za-z0-9]+)')
                     if gbscheck.search(mapcode) is not None:
                         self.log('\t  Removing Google Play pagemap file:', name)
                         container.delete_from_manifest(name)
