@@ -35,7 +35,7 @@ ALL_ARTIFACTS = ITUNES_FILES + BOOKMARKS_FILES + OS_FILES
 class TAG:
     content = ''    #actual content
     pair = 0        #tag pair
-    e_type = 0	    #1=OPEN 2=CLOSE 3=CONTAINED 4=TEXT OR CR/LF 9=REMOVE-EMPTY-SPAN
+    e_type = 0      #1=OPEN 2=CLOSE 3=CONTAINED 4=TEXT OR CR/LF 9=REMOVE-EMPTY-SPAN
 
 
 def modify_epub(log, title, epub_path, calibre_opf_path, cover_path, options):
@@ -469,7 +469,7 @@ class BookModifier(object):
                 #new_html = new_html.encode('utf-8')
                 if not new_html.strip().startswith('<?xml'):
                     new_html = '<?xml version="1.0" encoding="utf-8"?>'+new_html
-				new_html = re.sub(r'<\?xml([^\?]*?)\?><', r'<?xml\1?>\n<', new_html)
+                new_html = re.sub(r'<\?xml([^\?]*?)\?><', r'<?xml\1?>\n<', new_html)
                 if new_html != html:
                     dirtied = True
                     container.set(name, new_html)
@@ -522,47 +522,47 @@ class BookModifier(object):
             return False
 
         def unpretty_for_page(html_text):
-			if re.search(r'<pre\s*([^>]*?)>', html_text, re.I):
-				self.log('\t  Skipped:', name, ' - not safe to unpretty files which contain PRE elements.');
-			else:
-				html_text = re.sub(r'\r\n?', r'\n', html_text)
-				html_text = re.sub(r'<!--([\s\S]*?)-->', r'', html_text)
-				html_text = re.sub(r'</(b|h)r>', r'', html_text)
-				html_text = re.sub(r'!DOCTYPE([^>]*?)\n([^>]*?)>', r'!DOCTYPE\1 \2>', html_text)
-				html_text = re.sub(r'!DOCTYPE([^>]*?)>\s*', r'!DOCTYPE\1>\n', html_text)
-				html_text = re.sub(r'>\n\s+<', r'>\n<', html_text)
-				html_text = re.sub(r'\s+</([^>]+)>', r'</\1> ', html_text)
-				html_text = re.sub(r'[^\S\n]+\n', r'\n', html_text)
-				html_text = re.sub(r'<(\S+)([^/>]*?) style="display: ?none;?"([^/>]*?)></\1>', r'', html_text)
-				html_text = re.sub(r'>\s*<(html|head|title|meta|link|style|body|h\d|ul|ol|li|p|div|section|nav|tr|td)([^>]*?)(/?)>', r'>\n<\1\2\3>', html_text)
-				html_text = re.sub(r'<(h\d|li|p|div|section|nav|td)([^/>]*?)>\s*<(span|b|i|a|small)', r'<\1\2><\3', html_text)
-				html_text = re.sub(r'<(span|b|i|a|u|em|strong|small)([^>]*?)> <(span|b|i|a|u|em|strong|small)', r' <\1\2><\3', html_text)
-				html_text = re.sub(r'>\s+<(span|b|i|a|u|em|strong|big|small)', r'> <\1', html_text)
-				html_text = re.sub(r'\s*<(section|nav|div)([^>]*?)>', r'\n<\1\2>', html_text)
-				html_text = re.sub(r'<(section|nav|div)([^>]*?)>\s*', r'<\1\2>\n', html_text)
-				html_text = re.sub(r'\s*</(title|body|html)>\s*', r'</\1>\n', html_text)
-				html_text = re.sub(r'\s*</(h\d|ul|ol|p|table|tr)>\s*', r'</\1>\n\n', html_text)
-				html_text = re.sub(r'\s*<(b|h)r([^>]*?)/?>\s*', r'<\1r\2/>\n', html_text)
-				html_text = re.sub(r'<(meta|link)([^>]*?)/?>\s*', r'<\1\2/>\n', html_text)
-				html_text = re.sub(r'>\n*<(body|h\d|ul|ol|p|table)( ?)', r'>\n\n<\1\2', html_text)
-				html_text = re.sub(r'<(body|table|tr)([^>]*?)>\n*', r'<\1\2>\n', html_text)
-				html_text = re.sub(r'<td([^>]*?)>\n+', r'<td\1>\n', html_text)
-				html_text = re.sub(r'\n+</td>', r'\n</td>', html_text)
-				html_text = re.sub(r'\s*</(div|section|nav|table|tr|ul|ol|body)>', r'\n</\1>', html_text)
-				html_text = re.sub(r'\s*</head>\s*', r'\n</head>\n\n', html_text)
-				html_text = re.sub(r'\s*</(body|style)>', r'\n</\1>', html_text)
-				html_text = re.sub(r'/html>\s+', r'/html>', html_text)
-				html_text = re.sub(r' +', r' ', html_text)
+            if re.search(r'<pre\s*([^>]*?)>', html_text, re.I):
+                self.log('\t  Skipped:', name, ' - not safe to unpretty files which contain PRE elements.');
+            else:
+                html_text = re.sub(r'\r\n?', r'\n', html_text)
+                html_text = re.sub(r'<!--([\s\S]*?)-->', r'', html_text)
+                html_text = re.sub(r'</(b|h)r>', r'', html_text)
+                html_text = re.sub(r'!DOCTYPE([^>]*?)\n([^>]*?)>', r'!DOCTYPE\1 \2>', html_text)
+                html_text = re.sub(r'!DOCTYPE([^>]*?)>\s*', r'!DOCTYPE\1>\n', html_text)
+                html_text = re.sub(r'>\n\s+<', r'>\n<', html_text)
+                html_text = re.sub(r'\s+</([^>]+)>', r'</\1> ', html_text)
+                html_text = re.sub(r'[^\S\n]+\n', r'\n', html_text)
+                html_text = re.sub(r'<(\S+)([^/>]*?) style="display: ?none;?"([^/>]*?)></\1>', r'', html_text)
+                html_text = re.sub(r'>\s*<(html|head|title|meta|link|style|body|h\d|ul|ol|li|p|div|section|nav|tr|td)([^>]*?)(/?)>', r'>\n<\1\2\3>', html_text)
+                html_text = re.sub(r'<(h\d|li|p|div|section|nav|td)([^/>]*?)>\s*<(span|b|i|a|small)', r'<\1\2><\3', html_text)
+                html_text = re.sub(r'<(span|b|i|a|u|em|strong|small)([^>]*?)> <(span|b|i|a|u|em|strong|small)', r' <\1\2><\3', html_text)
+                html_text = re.sub(r'>\s+<(span|b|i|a|u|em|strong|big|small)', r'> <\1', html_text)
+                html_text = re.sub(r'\s*<(section|nav|div)([^>]*?)>', r'\n<\1\2>', html_text)
+                html_text = re.sub(r'<(section|nav|div)([^>]*?)>\s*', r'<\1\2>\n', html_text)
+                html_text = re.sub(r'\s*</(title|body|html)>\s*', r'</\1>\n', html_text)
+                html_text = re.sub(r'\s*</(h\d|ul|ol|p|table|tr)>\s*', r'</\1>\n\n', html_text)
+                html_text = re.sub(r'\s*<(b|h)r([^>]*?)/?>\s*', r'<\1r\2/>\n', html_text)
+                html_text = re.sub(r'<(meta|link)([^>]*?)/?>\s*', r'<\1\2/>\n', html_text)
+                html_text = re.sub(r'>\n*<(body|h\d|ul|ol|p|table)( ?)', r'>\n\n<\1\2', html_text)
+                html_text = re.sub(r'<(body|table|tr)([^>]*?)>\n*', r'<\1\2>\n', html_text)
+                html_text = re.sub(r'<td([^>]*?)>\n+', r'<td\1>\n', html_text)
+                html_text = re.sub(r'\n+</td>', r'\n</td>', html_text)
+                html_text = re.sub(r'\s*</(div|section|nav|table|tr|ul|ol|body)>', r'\n</\1>', html_text)
+                html_text = re.sub(r'\s*</head>\s*', r'\n</head>\n\n', html_text)
+                html_text = re.sub(r'\s*</(body|style)>', r'\n</\1>', html_text)
+                html_text = re.sub(r'/html>\s+', r'/html>', html_text)
+                html_text = re.sub(r' +', r' ', html_text)
             return html_text
-		
+
         for name in container.get_html_names():
             orig_html = container.get_raw(name)
-			html = orig_html
+            html = orig_html
             new_html = unpretty_for_page(html)
-			while html != new_html:
+            while html != new_html:
                 dirtied = True
-				html = new_html;
-				new_html = unpretty_for_page(html)
+                html = new_html;
+                new_html = unpretty_for_page(html)
             if orig_html != new_html:
                 container.set(name, new_html)
                 self.log('\t  De-indented:', name)
@@ -591,7 +591,7 @@ class BookModifier(object):
             total = 0
             for entity in entities:
                 if entity:
-					entity = container.decode(entity)
+                    entity = container.decode(entity)
                     total += 1
                     this_entity = TAG()
                     this_entity.content = entity
@@ -635,12 +635,12 @@ class BookModifier(object):
 
         for name in container.get_html_names():
             orig_html = container.get_raw(name)
-			html = orig_html
+            html = orig_html
             new_html = strip_span_for_page(html)
-			while html != new_html:
+            while html != new_html:
                 dirtied = True
-				html = new_html;
-				new_html = strip_span_for_page(html)
+                html = new_html;
+                new_html = strip_span_for_page(html)
             if orig_html != new_html:
                 container.set(name, new_html)
                 self.log('\t  Stripped spans in:', name)
@@ -657,11 +657,11 @@ class BookModifier(object):
         RE_GBS_ANCHOR2 = re.compile(r'<a id="GBS\.\d+\.\d+"/>', re.UNICODE | re.IGNORECASE)
         RE_KOBO_META1 = re.compile(r'\s*<!-- kobo-style -->', re.UNICODE | re.IGNORECASE)
         RE_KOBO_META2 = re.compile(r'\s*<script[^>]*? src="[^"]*?js/kobo(|-android)\.js"(/|></script)>', re.UNICODE | re.IGNORECASE)
-		RE_KOBO_META3 = re.compile(r'\s*<style[^>]*? id="kobo[\s\S]*?</style>', re.UNICODE | re.IGNORECASE)
+        RE_KOBO_META3 = re.compile(r'\s*<style[^>]*? id="kobo[\s\S]*?</style>', re.UNICODE | re.IGNORECASE)
         RE_KOBO_META4 = re.compile(r'\s*<link[^>]*? href="[^"]*?css/kobo(|-android)\.css"[\s\S]*?(/|></link)>', re.UNICODE | re.IGNORECASE)
         dirtied = False
-		gbsfound = False
-		gbsopf = False
+        gbsfound = False
+        gbsopf = False
         for name in container.get_html_names():
             html = container.get_raw(name)
             new_html = RE_GBS_ANCHOR1.sub('', html)
@@ -672,7 +672,7 @@ class BookModifier(object):
                 container.set(name, new_html)
 				html = new_html
                 self.log('\t  Removed Google Play anchors from:', name)
-				
+
             new_html = RE_KOBO_META1.sub('', new_html)
             new_html = RE_KOBO_META2.sub('', new_html)
             new_html = RE_KOBO_META3.sub('', new_html)
@@ -695,25 +695,25 @@ class BookModifier(object):
                 self.log('\t  Removed rights.xml file:', name)
                 container.delete_from_manifest(name)
                 dirtied = True
-				
-			if gbsfound == True:
-				if gbsopf == False:
-					for name in list(container.get_pagemap_names()):
-						mapcode = container.get_raw(name)
-						gbscheck = re.compile(r'#GBS\.\d+\.\d+')
-						if gbscheck.search(mapcode) is not None:
-							self.log('\t  Removing Google Play pagemap file:', name)
-							container.delete_from_manifest(name)
-							dirtied = True
-							html = container.get_raw(container.opf_name)
-							new_html = re.sub(r'<spine page-map="([^"]+?)"', r'<spine', html)
-							if html != new_html:
-								container.set(container.opf_name, new_html)
-								gbsopf = True
+
+        if gbsfound == True:
+            if gbsopf == False:
+                for name in list(container.get_pagemap_names()):
+                    mapcode = container.get_raw(name)
+                    gbscheck = re.compile(r'#GBS\.\d+\.\d+')
+                    if gbscheck.search(mapcode) is not None:
+                        self.log('\t  Removing Google Play pagemap file:', name)
+                        container.delete_from_manifest(name)
+                        dirtied = True
+                        html = container.get_raw(container.opf_name)
+                        new_html = re.sub(r'<spine page-map="([^"]+?)"', r'<spine', html)
+                        if html != new_html:
+                            container.set(container.opf_name, new_html)
+                            gbsopf = True
 
         def strip_kobo_for_page(html_text):
             HTML_ENTITY = []
-				
+
             html_text = re.sub(r'<(\S+)([^/>]*?)></\1>', r'<\1\2/>', html_text)
             html_text = re.sub(r'<([^>]*?)(\s+?)/>', r'<\1/>', html_text)
             html_text = re.sub(r'<span([^>]+?) id="kobo([^"]+?)"', r'<span id="kobo\2"\1', html_text)
@@ -730,7 +730,7 @@ class BookModifier(object):
                     total += 1
                     this_entity = TAG()
                     this_entity.content = entity
-					if entity[:15] == u'<span id="kobo.':
+                    if entity[:15] == u'<span id="kobo.':
                         this_entity.e_type = 9
                     elif entity[-2:] == u'/>':
                         this_entity.e_type = 3

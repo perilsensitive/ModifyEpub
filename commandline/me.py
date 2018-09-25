@@ -13,44 +13,44 @@ from calibre.utils.logging import Log
 from calibre.ptempfile import PersistentTemporaryFile
 
 HELP_INFO = '''
-To invoke this script:  
- 
+To invoke this script:
+
   calibre-debug -e me.py "input_epub_path" ["output_epub_path"] args
 
-    input_epub_path   - Mandatory. Path to the input epub to be modified. 
+    input_epub_path   - Mandatory. Path to the input epub to be modified.
 
-    output_epub_path  - Optional. Path to the output epub name after modification. 
+    output_epub_path  - Optional. Path to the output epub name after modification.
                         If not specified, will overwrite the input_epub_path.
 
     --quiet, --q      - Hide any debug or log output except for errors
 
     --help, --h       - Display the help listing available options
-    
+
     args              - One or more of the following values:
-    
+
         FILE_OPTIONS
             --remove_itunes_files
             --remove_calibre_bookmarks
             --remove_os_artifacts
             --remove_unused_images
-			--unpretty
-			--strip_spans
-			--strip_kobo
-        
+            --unpretty
+            --strip_spans
+            --strip_kobo
+
         MANIFEST_OPTIONS
             --remove_missing_files
             --add_unmanifested_files
             --remove_unmanifested_files
-        
+
         ADOBE_OPTIONS
             --zero_xpgt_margins
             --remove_xpgt_files
             --remove_drm_meta_tags
-        
+
         TOC_OPTIONS
             --flatten_toc
             --remove_broken_ncx_links
-        
+
         STYLE_OPTIONS
             --encode_html_utf8
             --remove_embedded_fonts
@@ -58,26 +58,26 @@ To invoke this script:
             --append_extra_css
             --smarten_punctuation
             --remove_javascript
-        
+
         JACKET_OPTIONS
             --remove_all_jackets
             --remove_legacy_jackets
-        
+
         COVER_OPTIONS
             --remove_broken_covers
             --remove_cover
             --insert_replace_cover "path_to_image"
-        
+
         METADATA_OPTIONS
             --remove_non_dc_elements
 
 e.g. To view the help output listing command arguments:
     calibre-debug -e me.py --help
 
-e.g. To overwrite an epub in place replacing the cover image 
+e.g. To overwrite an epub in place replacing the cover image
     calibre-debug -e me.py foo.epub --insert_replace_cover "cover.jpg"
 
-e.g. To write a new bar.epub after smartening punctuation and removing javascript 
+e.g. To write a new bar.epub after smartening punctuation and removing javascript
     calibre-debug -e me.py foo.epub bar.epub --smarten_punctuation --remove_javascript
 '''
 
@@ -104,7 +104,7 @@ def parse_args(args):
     options = {}
     cover_path = None
     quiet = False
-    
+
     import calibre.customize.ui
     from calibre_plugins.modify_epub.dialogs import ALL_OPTIONS
     for option_name, _t, _tt in ALL_OPTIONS:
@@ -143,7 +143,7 @@ def parse_args(args):
                 epub_input_path = make_absolute_path(arg)
             else:
                 epub_output_path = make_absolute_path(arg)
-    
+
     if aborted:
         return None, None, None, None, None
     return epub_input_path, epub_output_path, options, cover_path, quiet
@@ -197,13 +197,13 @@ def main():
         # Pump some debug output
         if not quiet:
             pump_debug_output(epub_input_path, epub_output_path, options, cover_path)
-        
+
         # If an epub output path specified, copy our input epub there for modification
         if epub_output_path is None:
             epub_output_path = epub_input_path
         else:
             shutil.copy(epub_input_path, epub_output_path)
-            
+
         # If a path to a cover specified, make a temporary copy as Modify ePub will delete it
         temp_cover_path = None
         if cover_path:
