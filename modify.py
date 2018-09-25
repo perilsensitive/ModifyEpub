@@ -153,16 +153,6 @@ class BookModifier(object):
         if options['add_replace_jacket']:
             is_changed |= add_replace_jacket(container, self.log, self.mi, self.opts.output_profile)
 
-        # METADATA/COVER OPTIONS
-        if options['remove_broken_covers']:
-            is_changed |= self._remove_broken_covers(container)
-        if options['remove_cover'] and not options['insert_replace_cover']:
-            is_changed |= self._remove_cover(container)
-        if options['remove_non_dc_elements'] and options['keep_pseudostandard_elements']:
-            is_changed |= self._remove_non_dc_elements(container, keep_elements=KEEP_OPF_ELEMENTS)
-        if options['remove_non_dc_elements'] and not options['keep_pseudostandard_elements']:
-            is_changed |= self._remove_non_dc_elements(container, keep_elements=None)
-
         # HTML/STYLE OPTIONS
         if options['encode_html_utf8']:
             is_changed |= self._encode_html_utf8(container)
@@ -194,6 +184,16 @@ class BookModifier(object):
             is_changed |= self._strip_kobo(container)
         if options['unpretty']:
             is_changed |= self._unpretty(container)
+
+        # METADATA/COVER OPTIONS
+        if options['remove_broken_covers']:
+            is_changed |= self._remove_broken_covers(container)
+        if options['remove_cover'] and not options['insert_replace_cover']:
+            is_changed |= self._remove_cover(container)
+        if options['remove_non_dc_elements'] and options['keep_pseudostandard_elements']:
+            is_changed |= self._remove_non_dc_elements(container, keep_elements=KEEP_OPF_ELEMENTS)
+        if options['remove_non_dc_elements'] and not options['keep_pseudostandard_elements']:
+            is_changed |= self._remove_non_dc_elements(container, keep_elements=None)
 
         # WARNING: This must be the very last option run, because afterwards
         # the container object may not be perfectly synchronised with changes
