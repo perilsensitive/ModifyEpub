@@ -583,7 +583,7 @@ class WritableContainer(Container):
 
     def delete_from_metadata(self, meta_item):
         '''
-        Given a meta item, remove it from the metadta section
+        Given a meta item, remove it from the metadata section
         '''
         self.log('\t  Meta item removed: %s'%meta_item.get('name'))
         self.fix_tail_before_delete(meta_item)
@@ -717,6 +717,16 @@ class ExtendedContainer(WritableContainer):
                     self.log.error('Error parsing encryption xml for DRM check')
                 return False
         return False
+
+    def get_pagemap_names(self):
+        '''
+        Helper function to return list of xpgt name(s) from this epub
+        '''
+        TEMPLATE_MIME_TYPES = ['application/oebps-page-map+xml']
+        for name in self.name_path_map:
+            mt = self.mime_map.get(name, '')
+            if (mt.lower() in TEMPLATE_MIME_TYPES):
+                yield name
 
     def get_xpgt_names(self):
         '''

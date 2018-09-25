@@ -1,6 +1,11 @@
+[B]Version 1.3.14[/B] - 26 Aug 2015
+Minor adjustments to the "unpretty" option, including consideration of EPUB3 elements (section/nav) and removal of EMPTY "display: none" elements.
+Resequenced modules so that deep parsing would not undo "unpretty" function's work.
+Enhanced "stripkobo" to also remove Google Play anchors of the <a id="GBS.0001.01"/> class, as well as the Google Play pagemaps that use them. These "pages" bear no resemblance to the printed book's pagination, thus the map does not appear to correspond to anything useful.
+
 [B]Version 1.3.13[/B] - 05 Jul 2015
 Added option to disable the confirmation prompt each time to update the epub. Use at your own risk - if you make simultaneous other changes to the book record they may get lost.
-Fix for Cancel on the progress dialog (submitted by Raúl)
+Fix for Cancel on the progress dialog (submitted by RaÃºl)
 
 [B]Version 1.3.12[/B] - 02 Oct 2014
 Fixed minor bug in "stripkobo" option that missed some Kobo artifacts inside the HEAD element.
