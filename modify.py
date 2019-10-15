@@ -31,6 +31,7 @@ ITUNES_FILES = ['iTunesMetadata.plist', 'iTunesArtwork']
 BOOKMARKS_FILES = ['META-INF/calibre_bookmarks.txt']
 OS_FILES = ['.DS_Store', 'thumbs.db']
 PAGE_MAP_FILES = ['page-map.xml']
+DISPLAY_OPTIONS_FILES = ['META-INF/com.apple.ibooks.display-options.xml', 'META-INF/com.kobobooks.display-options.xml']
 ALL_ARTIFACTS = ITUNES_FILES + BOOKMARKS_FILES + OS_FILES
 
 KEEP_OPF_ELEMENTS = ['cover', 'calibre:series', 'calibre:series_index']
@@ -168,6 +169,8 @@ class BookModifier(object):
             is_changed |= self._smarten_punctuation(container)
 
         # FILE OPTIONS
+        if options['remove_display_options_files']:
+            is_changed |= self._remove_files_if_exist(container, DISPLAY_OPTIONS_FILES)
         if options['remove_itunes_files']:
             is_changed |= self._remove_files_if_exist(container, ITUNES_FILES)
         if options['remove_calibre_bookmarks']:

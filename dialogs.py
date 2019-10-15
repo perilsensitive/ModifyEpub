@@ -34,6 +34,7 @@ FILE_OPTIONS = [
             ('remove_calibre_bookmarks',  'Remove calibre bookmark files',              'Remove any bookmark files added by the calibre ebook viewer'),
             ('remove_os_artifacts',       'Remove OS artifact files',                   'Removes any OS artifacts like thumbs.db or .DS_Store\nthat are not needed by the ePub'),
             ('remove_unused_images',      'Remove unused image files',                  'Remove any unused jpg, png or gif image files that are not referenced\nfrom the html pages. This can occur as the result of careless ePub editing.'),
+            ('remove_display_options_files',      'Remove *.display-options.xml files',                  'Remove any vendor-specific META-INF/*.display-options.xml files.'),
             ('unpretty',                  'De-indent (aka unpretty)',                   'Remove indentation from HTML files'),
             ('strip_kobo',                'Strip Kobo DRM remnants',                    'Remove remnants of Kobo DRM'),
             ('strip_spans',               'Strip spans',                                'Remove spans without attributes'),
