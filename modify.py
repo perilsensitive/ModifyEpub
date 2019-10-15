@@ -197,6 +197,8 @@ class BookModifier(object):
             is_changed |= self._remove_non_dc_elements(container, keep_elements=KEEP_OPF_ELEMENTS)
         if options['remove_non_dc_elements'] and not options['keep_pseudostandard_elements']:
             is_changed |= self._remove_non_dc_elements(container, keep_elements=None)
+        if options['remove_empty_dc_elements']:
+            is_changed |= self._remove_empty_dc_elements(container)
 
         # WARNING: This must be the very last option run, because afterwards
         # the container object may not be perfectly synchronised with changes
@@ -288,6 +290,30 @@ class BookModifier(object):
         if dirtied:
             container.set(container.opf_name, container.opf)
         return dirtied
+
+    def _remove_empty_dc_elements(self, container):
+        self.log('\tLooking for empty dc: elements in manifest')
+        if not container.opf_name:
+            self.log('\t  No opf manifest found')
+            return False
+        to_remove = []
+        metadata = container.opf.xpath('//opf:metadata', namespaces={'opf':OPF_NS})[0]
+        for child in metadata:
+            try:
+                if child.tag.startswith('{http://purl.org/dc/') and not len(child):
+                    to_remove.append(child)
+                    self.log('\t  Removing child:', child.tag)
+            except:
+                # Dunno how to elegantly handle in lxml parsing
+                # text like <!-- stuff --> which blows up when
+                # calling the .tag function.
+                to_remove.append(child)
+                self.log('\t  Removing child of commented out text:', child.text)
+        if to_remove:
+            for node in to_remove:
+                metadata.remove(node)
+            container.set(container.opf_name, container.opf)
+        return bool(to_remove)
 
     def _remove_non_dc_elements(self, container, keep_elements=None):
         self.log('\tLooking for non dc: elements in manifest')
